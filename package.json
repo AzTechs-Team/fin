@@ -1,0 +1,33 @@
+{
+  "name": "fin",
+  "version": "0.0.1",
+  "description": "Sharkie-Sharkie >.<",
+  "main": "src/bot.js",
+  "scripts": {
+    "start": "node src/bot.js",
+    "dev": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AzTechs-Team/fin.git"
+  },
+  "keywords": [
+    "discord-bot",
+    "sharks",
+    "discord.js"
+  ],
+  "type": "module",
+  "author": "AzTechs",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/AzTechs-Team/fin/issues"
+  },
+  "homepage": "https://github.com/AzTechs-Team/fin#readme",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
