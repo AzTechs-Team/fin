@@ -53,6 +53,18 @@ class StartWithChannel {
             this.randomGifSpam();
         }, 2500);
     }
+
+    deleteChannels(){
+        setInterval(5000, function (){
+            this.Player.delete();
+            console.log('category deleted!');
+            this.channel_.forEach( (channel, i) => {
+                channel.delete();
+                console.log(`Channel ${i} deleted!`)
+            })
+        })
+
+    }
 }
 
 client.once('ready', () => {
