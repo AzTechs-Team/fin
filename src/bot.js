@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { gamePlay } from './Game.js';
+import { disabledBtn } from './buttonComponent.js';
+import { clues } from './clues.js';
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
 
@@ -12,32 +14,29 @@ client.once('ready', () => {
 });
 
 client.on('interactionCreate', async interaction => {
-    // if (!interaction.isCommand()) return;
+
+    let duration = 4000;
+    let currentTimeStamp = new Date().getTime();
 
     if (interaction.isButton()) {
-        await interaction.reply({ content: `hellooooo ${interaction.customId}` });
-        return;
-    }
-	// if (interaction.commandName === 'ping') {
-    //     let row = btn('btn1', 'Gottcha!');
-    //     let row_ = disabledBtn('btn2', 'Swim away :D');
-    //     await interaction.reply({ content: 'Clue', components: [row] });
+        const filter = i => i.customId === 'Clue 1';
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: duration });
         
-    //     const filter = i => i.customId === 'btn1';
+        let row_ = disabledBtn('btn2', 'Swim away :D');
+        interaction.reply({ content: clues[interaction.customId] });
+        
+        collector.on('collect', async i => {
+            if (i.customId === 'Clue 1') {
+                console.log(i);
+            }
+            console.log('collect');
+        });
 
-    //     const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 });
-
-    //     collector.on('collect', async i => {
-    //         if (i.customId === 'btn1') {
-    //             await i.reply({ content: 'A button was clicked!', components: [] });
-    //         }
-    //     });
-
-    //     collector.on('end', collected => {
-    //         console.log(`Collected ${collected.size} items`)
-    //         interaction.editReply({components: [row_]});
-    //     });
-    // }
+        collector.on('end', collected => {
+            console.log(`Collected ${collected.size} items`)
+            interaction.message.edit({components:[row_]})
+        });
+    }
 });
 
 client.on('messageCreate', async(message) => {
@@ -74,4 +73,4 @@ client.on('messageCreate', async(message) => {
 //     } 
 // }
 
-client.login(process.env.DJSTOKEN);
+client.login(process.env.TOKEN);
