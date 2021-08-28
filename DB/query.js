@@ -1,5 +1,5 @@
 import pg from 'pg';
-import config from './config.js';
+import config from '../config.js';
 
 export const query = async(sqlCmd) => {
     const pool = new pg.Pool(config);
@@ -11,4 +11,6 @@ export const query = async(sqlCmd) => {
     }
 }
 
-// console.log(await query('SELECT id, balance FROM account;'));
+// const id = 3
+// const b = 'username'
+// console.log(await query(`INSERT INTO players VALUES('${ id }','${ b }',0,0);`));

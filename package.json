@@ -5,7 +5,7 @@
   "main": "src/bot.js",
   "scripts": {
     "start": "node src/bot.js",
-    "dev": "nodemon ."
+    "dev": "cd src && nodemon bot.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "fs": "0.0.1-security",
+    "giphy-api": "^2.0.2",
     "pg": "^8.7.1"
   },
   "devDependencies": {
