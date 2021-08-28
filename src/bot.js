@@ -23,6 +23,18 @@ class StartWithChannel {
             channels.push(channel_);
         });
     }
+
+    deleteChannels(){
+        setInterval(5000, function (){
+            this.Player.delete();
+            console.log('category deleted!');
+            this.channel_.forEach( (channel, i) => {
+                channel.delete();
+                console.log(`Channel ${i} deleted!`)
+            })
+        })
+
+    }
 }
 
 client.once('ready', () => {
@@ -36,12 +48,8 @@ client.on('messageCreate', async(message) => {
             case "~start": {
                 let newPlayer = new StartWithChannel(message);
                 await newPlayer.createCategory('ggs');
-                await newPlayer.createChannel();
-                // let newCategory = await message.guild.channels.create('demoCategory', {type: 'GUILD_CATEGORY'});
-                // channelNames.forEach(channel => {
-                    
-                // })                
-                // console.log(newCategory);
+                // await newPlayer.createChannel();
+
             }
             break;
         }
