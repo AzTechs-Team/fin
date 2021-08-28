@@ -12,9 +12,35 @@ export class gamePlay{
         this.cluesFound = 0;
     }
 
+    async makeRole(){
+        let allRoles = await this.msg.guild.roles.fetch();
+        let everyOneRole;
+        allRoles.forEach(roli => {
+            if(roli.name == '@everyone') {
+                everyOneRole = roli;
+                console.log(roli.name, roli.id);
+                return
+            }
+        })
+        // console.log(await everyOneRole.name);
+        this.everOneRole = await everyOneRole;
+        let colors = ['GREEN', 'BLUE', 'PURPLE', 'ORANGE', 'GOLD'];
+        const randNum = Math.floor(Math.random() * 5);
+        let color = colors[randNum];
+        let role = await this.msg.guild.roles.create({name: `Player: ${this.msg.name}`, mentionable: true, color: color});
+        let GuildMember = await this.msg.member.roles.add(role);
+        this.Player = GuildMember;
+        this.PersonRole = role;
+    }
     async createCategory(categoryName){
         this.categoryName = categoryName;
         let newCategory = await this.msg.guild.channels.create(this.categoryName, {type: 'GUILD_CATEGORY'});
+        let perms = await newCategory.permissionOverwrites;
+        console.log(perms);
+        perms.set([
+            {id: this.everOneRole, deny: ['VIEW_CHANNEL']},
+            {id: this.PersonRole, allow: ['VIEW_CHANNEL', 'SEND_MESSAGES']}
+        ])
         this.Player = await newCategory;
 
         this.query = await query(`INSERT INTO players VALUES('${this.msg.author.id}','${this.msg.author.username}',0,0);`);
