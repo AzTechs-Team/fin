@@ -5,7 +5,7 @@ dotenv.config();
 
 import { gamePlay } from './Game.js';
 import { disabledBtn } from './buttonComponent.js';
-import { clues } from './clues.js';
+import { clues } from './info.js';
 import { slides } from './kewl/slides.js';
 
 const client = new Client({
@@ -83,6 +83,7 @@ client.on('messageCreate', async(message) => {
                         }
                         if (newPlayer.pptCounter === slides.length - 1) {
                             await newPlayer.ppt.reactions.removeAll()
+                            newPlayer.dmInstructions();
                             await newPlayer.makeRole();
                             await newPlayer.createCategory('ggs');
                             newPlayer.createChannel();

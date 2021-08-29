@@ -3,7 +3,7 @@ const gh = giphyApi(process.env.API);
 
 import { query } from '../DB/query.js';
 import { btn } from './buttonComponent.js';
-import { clues } from './clues.js';
+import { clues, instructions } from './info.js';
 import { slides } from './kewl/slides.js';
 
 export class gamePlay{
@@ -35,6 +35,10 @@ export class gamePlay{
     this.ppt = await this.msg.channel.send(slides[0]);
     this.ppt.react('◀️');
     this.ppt.react('▶️');
+  }
+
+  async dmInstructions() {
+    this.msg.author.send(instructions);
   }
 
   async makeRole(){
