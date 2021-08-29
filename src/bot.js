@@ -1,4 +1,4 @@
-import { Client, Intents } from 'discord.js';
+import {Client, Intents, MessageSelectMenu, MessageActionRow, MessageEmbed} from 'discord.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -58,7 +58,65 @@ client.on('interactionCreate', async interaction => {
             counter ++;
         })
     }
-    if(interaction.isCommand()){
+    else if(interaction.isButton() && interaction.customId == "btn4"){
+
+        // const selectRow = new MessageActionRow()
+        //     .addComponents(new MessageSelectMenu()
+        //         .setCustomId('quiz')
+        //         .setPlaceholder('Select the right one!')
+        //         .addOptions[(
+        //             {
+        //                 label: "Select me",
+        //                 description: "Obviously this is correct!",
+        //                 valueOf: "one"
+        //             },
+        //             {
+        //                 label: "Select me",
+        //                 description: "Obviously this is correct!",
+        //                 valueOf: "two"
+        //             },
+        //             {
+        //                 label: "Select me",
+        //                 description: "Obviously this is correct!",
+        //                 valueOf: "three"
+        //             }
+        //         )]
+        //     );
+        const row = new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                    .setCustomId('select')
+                    .setPlaceholder('Nothing selected')
+                    .addOptions([
+                        {
+                            label: 'Select me',
+                            description: 'This is a description',
+                            value: 'first_option',
+                        },
+                        {
+                            label: 'You can select me too',
+                            description: 'This is also a description',
+                            value: 'second_option',
+                        },
+                    ]),
+            );
+
+        await interaction.reply({ content: 'Pong!', components: [row] });
+        // const embed = new MessageEmbed()
+        //     .setColor('#0099ff')
+        //     .setTitle('Quize Time')
+        //     .setDescription('Some description here');
+        // console.log(interaction.customId);
+        // await interaction.reply({content: 'ummm Quize Time!', embeds: [embed]});
+        console.log('Quize Complete!');
+    }
+    else if(interaction.isSelectMenu()){
+        console.log(interaction);
+        if(interaction.values[0] == "first_option") {
+            interaction.reply({content: '100 points to you <3'})
+        }
+    }
+    else if(interaction.isCommand()){
         console.log(interaction.commandName);
         switch(interaction.commandName) {
             // bait
@@ -71,7 +129,7 @@ client.on('interactionCreate', async interaction => {
             break;
             // actually clue
             case "not-a-clue": {
-                let row = btn('btn3', 'Swim away :D');
+                let row = btn('btn4', 'Swim away :D');
                 await interaction.reply({content: 'This was the right answer! (what to do...)', components: [row]});
             }
             break;
