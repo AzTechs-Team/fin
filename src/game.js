@@ -4,6 +4,7 @@ const gh = giphyApi(process.env.API);
 import { query } from '../DB/query.js';
 import { btn } from './buttonComponent.js';
 import { clues } from './clues.js';
+import { slides } from './kewl/slides.js';
 
 export class gamePlay{
   constructor(message){
@@ -27,6 +28,13 @@ export class gamePlay{
         this.cluesFound.pop();
       }
     }
+  }
+
+  async startPPT() {
+    this.pptCounter = 0;
+    this.ppt = await this.msg.channel.send(slides[0]);
+    this.ppt.react('◀️');
+    this.ppt.react('▶️');
   }
 
   async makeRole(){
@@ -99,7 +107,7 @@ export class gamePlay{
       this.channels[randNum].send(res.data.embed_url);
   }
 
-  hideAndSeek() {
+  findYourWayHome() {
     setInterval(() => {
       this.randomGifSpam();
       
