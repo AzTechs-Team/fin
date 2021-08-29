@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/bot.js",
     "dev": "cd src && nodemon bot.js",
-    "del": "node src/deleteChannel.js"
+    "del": "node src/deleteChannel.js",
+    "slash": "node src/slashCmds.js"
   },
   "repository": {
     "type": "git",

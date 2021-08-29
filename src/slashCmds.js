@@ -14,8 +14,8 @@ const guildId = '744874959905751091';
 const clientId = '880907521198551101';
 
 const data = new SlashCommandBuilder()
-	.setName('ping')
-	.setDescription('Sends a random gif!')
+	.setName('bonus-please')
+	.setDescription('Helps you get some bonus points!')
 	// .addStringOption(option =>
 	// 	option.setName('category')
 	// 		.setDescription('The gif category')

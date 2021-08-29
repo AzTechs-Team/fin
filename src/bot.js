@@ -43,11 +43,21 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
+client.on('interactionCreate', async interaction => {
+    if(interaction.isCommand()){
+        console.log(interaction);
+        await interaction.deferReply();
+        setTimeout(async function (){
+            await interaction.editReply('lmao bruh XD');
+        }, 7000)
+    }
+})
+
 client.on('messageCreate', async(message) => {
     if (message.author.bot) return;
-    if(message.content.startsWith('!')){
+    if(message.content.startsWith('~')){
         switch(message.content){
-            case "!start": {
+            case "~start": {
                 let newPlayer = new gamePlay(message);
                 allPlayers.push(newPlayer);
 
