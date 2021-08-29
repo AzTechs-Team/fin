@@ -1,9 +1,9 @@
 export const clues = {
-  "Clue 1":"Clue 1 desc",
-  "Clue 2":"Clue 2 desc",
-  "Clue 3":"Clue 3 desc",
-  "Clue 4":"Clue 4 desc",
-  "Clue 5":"Clue 5 desc"
+  "Clue 1":"The platic waste seems really dense here! Try to SLASH through it :p",
+  "Clue 2":"Bubbles and seaweed everywhere!! Gotta swim through it all to get to the next checkpoint",
+  "Clue 3":"Sunken ships all around. Try your luck with the options below!",
+  "Clue 4":"Kinda afraid and loney! If only I had someone to talk to...",
+  "Clue 5":"lmaooo xD"
 }
 
 export const instructions = 

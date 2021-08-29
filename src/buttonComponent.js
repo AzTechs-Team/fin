@@ -20,3 +20,11 @@ export const disabledBtn = (id, label) => {
       .setEmoji('🦈')
       );
 }
+
+// export const linkBtn = (id, label) => {
+//   return new MessageActionRow()
+//     .addComponents(new MessageButton()
+//       .setLabel(label)
+//       .setURL('https://www.youtube.com/watch?v=wHAPJDl3s9k')
+//       );
+// }

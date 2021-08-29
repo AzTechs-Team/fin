@@ -97,64 +97,71 @@ export class gamePlay{
   }
 
   async randomGifSpam() {
-      const tagsList = ["shark", "coral reef", "fish", "ocean",
-          "marine ecosystem", "shark cute", "finding nemo",
-          "little mermaid", "dolphins", "jelly fish"]
-      const randTag = Math.floor(Math.random() * tagsList.length);
-      const res = await gh.random({
-          tag: tagsList[randTag],
-          rating: 'g',
-          fmt: 'json',
-          limit: 1
-      });
-      const randNum = Math.floor(Math.random() * this.channels.length);
-      this.channels[randNum].send(res.data.embed_url);
+    const tagsList = ["shark", "coral reef", "fish", "ocean",
+        "marine ecosystem", "shark cute", "finding nemo",
+        "little mermaid", "dolphins", "jelly fish"]
+    const randTag = Math.floor(Math.random() * tagsList.length);
+    const res = await gh.random({
+        tag: tagsList[randTag],
+        rating: 'g',
+        fmt: 'json',
+        limit: 1
+    });
+    let randNum = Math.floor(Math.random() * this.channels.length);
+    this.channels[randNum].send(res.data.embed_url);
   }
 
   findYourWayHome() {
     setInterval(() => {
       this.randomGifSpam();
-      
-      if (this.cluesFound.length === 4) {
+      if (this.cluesFound.length > 4) {
         clearInterval()
       }
-    }, 2500);
+    }, 1500);
 
-    let duration = 10000
-    const interval = setInterval(() => {
-      let setClue = this.cluesFound.length
-      if (setClue === 4) {
-        clearInterval(interval);
+    setTimeout(() => {
+      if (this.cluesFound.length === 0) {
+        let row = btn('Clue 1', 'Clue 1');
+        let randNum = Math.floor(Math.random() * this.channels.length);
+        this.channels[randNum].send({ content: "...", components: [row] });
       }
+    }, 1000);
+  }
 
-      console.log(setClue, Object.keys(clues)[setClue]);
-      
-      let row = btn(Object.keys(clues)[setClue], Object.keys(clues)[setClue]);
-
-      const randNum = Math.floor(Math.random() * this.channels.length);
-      this.channels[randNum].send({ content: "...", components: [row] });
-    }, duration);
+  triggerNextClue() {
+    if (this.cluesFound.length === 2) {
+      console.log('here');
+      setTimeout(() => {
+        let row = btn('Clue 3', 'Clue 3');
+        let randNum = Math.floor(Math.random() * this.channels.length);
+        this.channels[0].send({ content: "...", components: [row] });
+      }, 10000);
+    }
   }
 
   static async chat(counter, thread) {
-      switch (counter) {
-          case 1: {
-              thread.send('Hello child, how are you!')
-          }
-          break;
-          case 2: {
-              thread.send("I'm here in the deep ocean, don't we will find each other! Solve the clues they would the best way to find me!");
-          }
-              break;
-          case 3: {
-                thread.send("Points I'll give some points from here to you, take 100 points here. Lets swim fast and meet!")
-          }
-              break;
-          case 4: {
-                thread.send("The connection was dissrupted! FIND HER ASAP")
-          }
-              break;
+    switch (counter) {
+      case 1: {
+          thread.send('Hello child, how are you!')
       }
+      break;
+      case 2: {
+          thread.send("I'm here in the deep ocean, don't we will find each other! Solve the clues they would the best way to find me!");
+      }
+      break;
+      case 3: {
+            thread.send("Points I'll give some points from here to you, take 100 points here. Lets swim fast and meet!")
+      }
+      break;
+      case 4: {
+        thread.send("The connection was dissrupted! FIND HER ASAP")
+      }
+      break;
+      case 5: {
+        thread.send('<https://bit.ly/2WAMtpt>\nlmao xD')  
+      }
+      break;
+    }
   }
 
 }
