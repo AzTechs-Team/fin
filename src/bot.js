@@ -15,36 +15,53 @@ client.once('ready', () => {
 
 let allPlayers = [];
 
-client.on('interactionCreate', async interaction => {
-
-    let duration = 4000;
-    // let currentTimeStamp = new Date().getTime();
-
-    if (interaction.isButton()) {
-        const filter = i => Object.keys(clues).includes(i.customId);
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: duration });
-        
-        let row_ = disabledBtn('btn2', 'Swim away :D');
-        interaction.reply({ content: clues[interaction.customId] });
-
-        collector.on('end', collected => {
-            console.log(interaction.user.id);
-            interaction.message.edit({ components: [row_] });
-            allPlayers.forEach(element => {
-                if (element.id === interaction.user.id) {
-                    console.log(element.cluesFound);
-                    element.foundAClue(interaction.customId);
-                }
-            });
-        });
-    }
-});
+// client.on('interactionCreate', async interaction => {
+//
+//     let duration = 4000;
+//     // let currentTimeStamp = new Date().getTime();
+//
+//     if (interaction.isButton()) {
+//         const filter = i => Object.keys(clues).includes(i.customId);
+//         const collector = interaction.channel.createMessageComponentCollector({ filter, time: duration });
+//
+//         let row_ = disabledBtn('btn2', 'Swim away :D');
+//         interaction.reply({ content: clues[interaction.customId] });
+//
+//         collector.on('end', collected => {
+//             console.log(interaction.user.id);
+//             interaction.message.edit({ components: [row_] });
+//             allPlayers.forEach(element => {
+//                 if (element.id === interaction.user.id) {
+//                     console.log(element.cluesFound);
+//                     element.foundAClue(interaction.customId);
+//                 }
+//             });
+//         });
+//     }
+// });
 
 client.on('interactionCreate', async interaction => {
     // Empty Command!
+    if(interaction.isButton() && interaction.customId == "btn3") {
+        console.log(interaction.customId);
+        await interaction.reply({content: 'Threads are the best way to have a conversation!'});
+        let threadChat = await interaction.channel.threads.create({
+            name: 'food-talk',
+            autoArchiveDuration: 60,
+            reason: 'Needed a separate thread for food',
+        });
+        console.log(threadChat.id);
+        let counter = 0;
+        client.on("messageCreate", async message => {
+            if(message.author.bot) return;
+            gamePlay.chat(counter, threadChat);
+            counter ++;
+        })
+    }
     if(interaction.isCommand()){
         console.log(interaction.commandName);
         switch(interaction.commandName) {
+            // bait
             case "bonus-please": {
                 await interaction.deferReply();
                 setTimeout(async function (){
@@ -52,9 +69,10 @@ client.on('interactionCreate', async interaction => {
                 }, 7000)
             }
             break;
+            // actually clue
             case "not-a-clue": {
-                let row = btn('btn2', 'Swim away :D');
-                await interaction.reply({content: 'This was the right answer!', components: [row]});
+                let row = btn('btn3', 'Swim away :D');
+                await interaction.reply({content: 'This was the right answer! (what to do...)', components: [row]});
             }
             break;
         }

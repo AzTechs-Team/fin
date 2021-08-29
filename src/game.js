@@ -124,14 +124,25 @@ export class gamePlay{
     }, duration);
   }
 
-  deleteChannels(){
-      setInterval(5000, function (){
-          this.Player.delete();
-          console.log('category deleted!');
-          this.channel_.forEach( (channel, i) => {
-              channel.delete();
-              console.log(`Channel ${i} deleted!`)
-          })
-      })
+  static async chat(counter, thread) {
+      switch (counter) {
+          case 1: {
+              thread.send('Hello child, how are you!')
+          }
+          break;
+          case 2: {
+              thread.send("I'm here in the deep ocean, don't we will find each other! Solve the clues they would the best way to find me!");
+          }
+              break;
+          case 3: {
+                thread.send("Points I'll give some points from here to you, take 100 points here. Lets swim fast and meet!")
+          }
+              break;
+          case 4: {
+                thread.send("The connection was dissrupted! FIND HER ASAP")
+          }
+              break;
+      }
   }
+
 }
