@@ -40,6 +40,16 @@ client.on('interactionCreate', async interaction => {
     // }
 });
 
+client.on('interactionCreate', async interaction => {
+    if(interaction.isCommand()){
+        console.log(interaction);
+        await interaction.deferReply();
+        setTimeout(async function (){
+            await interaction.editReply('lmao bruh XD');
+        }, 7000)
+    }
+})
+
 client.on('messageCreate', async(message) => {
     if (message.author.bot) return;
     if(message.content.startsWith('~')){
@@ -55,24 +65,5 @@ client.on('messageCreate', async(message) => {
         }
     }
 })
-
-// client.on('messageCreate', async(message) => {
-//     if (message.author.bot) return;
-//     if(await message.content.startsWith('~')){
-//         let commands = new Commands(message)
-//         commands.switcher();
-//     }
-// })
-// class Commands{
-//     static switcher(){
-//         console.log(await this.command);
-//         switch(this.command){
-//             case "~start": {
-//                 console.log('here!');
-//             }
-//             break;
-//         }
-//     } 
-// }
 
 client.login(process.env.DJSTOKEN);
