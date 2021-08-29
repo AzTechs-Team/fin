@@ -145,10 +145,10 @@ client.on('messageCreate', async(message) => {
             case "~start": {
                 let newPlayer = new gamePlay(message);
                 allPlayers.push(newPlayer);
-                await newPlayer.makeRole();
-                await newPlayer.createCategory('ggs');
-                newPlayer.createChannel();
-                newPlayer.hideAndSeek();
+                // await newPlayer.makeRole();
+                // await newPlayer.createCategory('ggs');
+                // newPlayer.createChannel();
+                // newPlayer.hideAndSeek();
             }
             break;
         }

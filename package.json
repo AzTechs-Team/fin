@@ -5,7 +5,7 @@
   "main": "src/bot.js",
   "scripts": {
     "start": "node src/bot.js",
-    "dev": "cd src && nodemon bot.js",
+    "dev": "nodemon src/bot.js",
     "del": "node src/deleteChannel.js",
     "slash": "node src/slashCmds.js"
   },
