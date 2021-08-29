@@ -13,38 +13,40 @@ client.once('ready', () => {
   console.log('The bot is ready lets go!');
 });
 
+let allPlayers = [];
+
 client.on('interactionCreate', async interaction => {
 
     let duration = 4000;
-    let currentTimeStamp = new Date().getTime();
+    // let currentTimeStamp = new Date().getTime();
 
     if (interaction.isButton()) {
-        const filter = i => i.customId === 'Clue 1';
+        const filter = i => Object.keys(clues).includes(i.customId);
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: duration });
         
         let row_ = disabledBtn('btn2', 'Swim away :D');
         interaction.reply({ content: clues[interaction.customId] });
-        
-        collector.on('collect', async i => {
-            if (i.customId === 'Clue 1') {
-                console.log(i);
-            }
-            console.log('collect');
-        });
 
         collector.on('end', collected => {
-            console.log(`Collected ${collected.size} items`)
-            interaction.message.edit({components:[row_]})
+            console.log(interaction.user.id);
+            interaction.message.edit({ components: [row_] });
+            allPlayers.forEach(element => {
+                if (element.id === interaction.user.id) {
+                    console.log(element.cluesFound);
+                    element.foundAClue(interaction.customId);
+                }
+            });
         });
     }
 });
 
 client.on('messageCreate', async(message) => {
     if (message.author.bot) return;
-    if(message.content.startsWith('~')){
+    if(message.content.startsWith('!')){
         switch(message.content){
-            case "~start": {
+            case "!start": {
                 let newPlayer = new gamePlay(message);
+                allPlayers.push(newPlayer);
                 await newPlayer.makeRole();
                 await newPlayer.createCategory('ggs');
                 newPlayer.createChannel();
