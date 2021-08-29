@@ -12,7 +12,7 @@ client.on("messageCreate", async (message) => {
         let guild = await message.guild;
         let spamChannels = await guild.channels.fetch();
         spamChannels.forEach(spamChannel => {
-            if(spamChannel.name == 'ggs' || spamChannel.name == 'coral-reefs' || spamChannel.name == 'oil-spills' || spamChannel.name == 'tides' || spamChannel.name == 'plastic-wastes' || spamChannel.name == 'schools-of-fish'|| spamChannel.name == 'sea-floor'|| spamChannel.name == 'FUCK THIS SHIT')
+            if(spamChannel.name == 'ggs' || spamChannel.name == 'coral-reefs' || spamChannel.name == 'oil-spills' || spamChannel.name == 'tides' || spamChannel.name == 'plastic-wastes' || spamChannel.name == 'schools-of-fish'|| spamChannel.name == 'sea-floor'|| spamChannel.name == 'FUCK THIS SHIT'|| spamChannel.name == 'sed')
             spamChannel.delete();
             console.log(`deleted ${spamChannel.name}!`);
         })
