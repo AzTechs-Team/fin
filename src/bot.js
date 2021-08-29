@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { gamePlay } from './Game.js';
-import { disabledBtn } from './buttonComponent.js';
+import { btn, disabledBtn } from './buttonComponent.js';
 import { clues } from './clues.js';
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
@@ -41,14 +41,26 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.on('interactionCreate', async interaction => {
+    // Empty Command!
     if(interaction.isCommand()){
-        console.log(interaction);
-        await interaction.deferReply();
-        setTimeout(async function (){
-            await interaction.editReply('lmao bruh XD');
-        }, 7000)
+        console.log(interaction.commandName);
+        switch(interaction.commandName) {
+            case "bonus-please": {
+                await interaction.deferReply();
+                setTimeout(async function (){
+                    await interaction.editReply('lmao bruh XD');
+                }, 7000)
+            }
+            break;
+            case "not-a-clue": {
+                let row = btn('btn2', 'Swim away :D');
+                await interaction.reply({content: 'This was the right answer!', components: [row]});
+            }
+            break;
+        }
     }
 })
+
 
 client.on('messageCreate', async(message) => {
     if (message.author.bot) return;

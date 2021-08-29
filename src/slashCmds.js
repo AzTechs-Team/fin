@@ -23,9 +23,20 @@ const data = new SlashCommandBuilder()
 	// 		.addChoice('Funny', 'gif_funny')
 	// 		.addChoice('Meme', 'gif_meme')
     //   .addChoice('Movie', 'gif_movie'));
-      
+
+const data1 = new SlashCommandBuilder()
+	.setName('not-a-clue')
+	.setDescription("Clues are everywhere but I'm not one of them!");
+// .addStringOption(option =>
+// 	option.setName('category')
+// 		.setDescription('The gif category')
+// 		.setRequired(true)
+// 		.addChoice('Funny', 'gif_funny')
+// 		.addChoice('Meme', 'gif_meme')
+//   .addChoice('Movie', 'gif_movie'));
 
 commands.push(data.toJSON());
+commands.push(data1.toJSON());
 
 const rest = new REST({ version: '9' }).setToken(process.env.DJSTOKEN);
 
